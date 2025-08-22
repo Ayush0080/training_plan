@@ -148,8 +148,90 @@ This is a newer, more modern orchestration mode that gives you greater control a
 
  2. generalized image - A generalized image is a VM template that has been prepared to be used for creating many new VMs (e.g., for scale sets).
 
- - Unique Data Removed: Before the image is created, a process called Sysprep for Windows or waagent -deprovision for Linux runs to remove all unique, machine-specific information. This "depersonalizes" the VM
+ - Unique Data Removed: Before the image is created, a process called Sysprep for Windows or waagent -deprovision for Linux runs to remove all unique, machine-specific information. This "depersonalizes" the 
+ 
+ ### Proximity Placement Groups
 
+ - it's a way to ensure that your VMs are physically located as close to each other as possible, within the same data center.
+
+ - Create proximity placement group
+ ![alt text](image-13.png)
+
+ ![alt text](image-14.png)
+
+ ![alt text](image-15.png)
+
+
+ ### Azure Web Apps
+- Azure App Service, is a Platform as a Service (PaaS) that provides a fully managed environment for hosting web applications.
+
+ - In simple terms, it's a way to deploy your website or web application to the cloud without having to worry about managing the underlying infrastructure like virtual machines, operating systems, or web servers. You just focus on your code, and Azure handles everything else.
+
+ - Language Support: It supports a wide variety of programming languages and frameworks, including .NET, Java, Node.js, Python, and PHP.
+
+ ![alt text](image-16.png)
+ ![alt text](image-17.png)
+
+### Deployment Slots
+
+- Deployment Slots are live versions of your web app that run on different URLs. They allow you to deploy and test a new version of your application in a safe environment before making it available to your users.
+
+-  Instead of deploying your new code directly to the production slot, you deploy it to the staging slot. This new version is live but hidden from your users. You can then test it, run automated tests, and ensure everything is working correctly without affecting your live website.
+
+- Once you are confident that the new version is stable, you perform a "swap" operation. Azure instantly and seamlessly swaps the contents of the staging slot with the production slot. The URL that was pointing to the old, live app now points to the new version, and the old version is moved to the staging slot.
+
+![alt text](image-18.png)
+![alt text](image-19.png)
+![alt text](image-20.png)
+
+- Autoscaling for Web Apps
+![alt text](image-21.png)
+
+### Azure Container Registry (ACR) 
+
+- ACR is a managed, private Docker registry service in Azure. It is a secure place to store and manage your container images and other related artifacts.
+
+### Azure Container Group 
+
+- Azure Container Group is a collection of containers that are deployed and managed together on a single host machine. Think of it as a logical grouping of one or more containers that share resources like a network, storage, and a lifecycle.
+
+
+# Configure and manage virtual networking
+
+### Virtual Networks 
+
+-  Virtual Networks is private and isolated network in the Azure cloud. It provides a secure environment Azure resources—like virtual machines, web apps, and databases—to communicate with each other, the internet, and on-premises network.
+
+![alt text](image-23.png)
+
+### Subnets
+
+- logical subdivision of a larger network. The process of dividing a network into subnets is called subnetting.
+- The main use of subnets is to improve network performance, security, and management. By dividing a large network into smaller ones
+
+- Public Subnet: A subnet that has a direct route to the internet, typically through an Internet Gateway. Resources in a public subnet, such as web servers and load balancers, are accessible from the public internet.
+
+- Private Subnet: A subnet that has no direct route to the internet. These are highly secure and used to host internal resources like databases, application servers, and other sensitive data that should not be exposed to the public internet
+
+### network interface
+
+- network interface is a component that enables a computer to connect to a network. It can be a physical piece of hardware, like a network card (also known as a NIC), or a virtual component used in cloud computing.
+
+- In Azure, a Network Interface (NIC) is a virtual network card that allows a virtual machine (VM) to communicate with other resources in an Azure Virtual Network (VNet), the internet, and on-premises networks.
+
+- if we want to attach the new  interface ontoVM machine, It needs to be in the same virtual network and it needs to be in the same subnet.
+
+![alt text](image-24.png)
+
+### Network Security Groups
+
+- Network Security Group (NSG) is a security feature in Azure that acts as a virtual firewall for your virtual network. It contains a set of security rules that allow or deny inbound and outbound network traffic to your Azure resources
+
+#### Network Security Groups - Priority setting
+
+- if we setlower priority for rules So that was evaluated first .
+
+![alt text](image-25.png)
 
 
 
