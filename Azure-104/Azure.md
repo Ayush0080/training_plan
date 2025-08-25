@@ -40,7 +40,7 @@
 #### adding data disk
 ![alt text](<Screenshot 2025-08-21 125153.png>)
 
-- Disk snapshot - ypu can  create a read-only copy of a hard disk via the use of snapshot this can be used as a point-in-time backup you can create a backup of the os and data disk.
+- Disk snapshot - you can  create a read-only copy of a hard disk via the use of snapshot this can be used as a point-in-time backup you can create a backup of the os and data disk.
 
 - you can also create a new disk from the the snapshot
 
@@ -229,9 +229,127 @@ This is a newer, more modern orchestration mode that gives you greater control a
 
 #### Network Security Groups - Priority setting
 
-- if we setlower priority for rules So that was evaluated first .
+- if we set lower priority for rules So that was evaluated first .
 
 ![alt text](image-25.png)
+
+
+- ping request uses ICMP protocol
+
+- NSG acts as a virtual firewall that filters network traffic. Its stateful nature means incoming request is allowed,the outgoing response is automatically allowed as well.
+
+- When NSG rules are assigned at both the subnet and network interface (NIC) levels, Azure evaluates traffic differently depending on the direction of the flow. In both cases, for traffic to be allowed, it must be permitted by both the NSG on the subnet and the NSG on the NIC. If either NSG denies the traffic, it is blocked.
+
+- Inbound Traffic
+
+  - For traffic coming into a virtual machine:
+
+  - Subnet NSG is evaluated first. Azure processes the rules of the NSG associated with the subnet. The rules are evaluated in order of priority (lowest number first).
+
+  - NIC NSG is evaluated second. If the subnet NSG allows the traffic, it then proceeds to the NSG associated with the virtual machine's NIC.
+
+  - Final Decision. Both NSGs must have an "Allow" rule that matches the traffic for it to reach the virtual machine. If the subnet NSG denies the traffic, the NIC NSG is never even checked.
+
+- outbound Traffic
+
+  - For traffic leaving a virtual machine:
+
+  - NSG is evaluated first. Azure processes the rules of the NSG associated with the virtual machine's NIC.
+
+  - Subnet NSG is evaluated second. If the NIC NSG allows the traffic, it then proceeds to the NSG associated with the subnet.
+
+  - Final Decision. Both NSGs must have an "Allow" rule that matches the traffic for it to leave the virtual network. If the NIC NSG denies the traffic, it is blocked before it even reaches the subnet NSG.
+
+### Application Security Group (ASG) :
+    
+- Application Security Group (ASG) is a logical tag in Azure that lets you group virtual machines by their application role, so you can write and manage firewall rules without referencing specific IP addresses.
+
+### Azure Bastion :
+
+- Azure Bastion is a fully managed service that provides more secure Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs)
+
+  - first create a new subnet in vnet subnet name mustbe AzureBastionSubnet
+   
+   ![alt text](image-26.png)
+
+  - now go to the bastion and deploy bastion service
+
+  ![alt text](image-27.png)  
+  - dissociate the publice ip from the VM beacuse make sure that there is no way to connect to this machine using publice ip.
+
+  ![alt text](image-28.png) 
+  ![alt text](image-29.png)
+
+  - now coonect to vm using  bastion
+  ![alt text](image-30.png)
+  ![alt text](image-31.png)
+
+### Virtual Network Peering :
+
+- VNet peering is a networking service that connects two or more Azure Virtual Networks (VNets), enabling them to communicate with each other as if they were a single network.
+
+  - created two VM in different VNets
+     ![alt text](image-32.png)
+
+   - now open one of the Vnet and create peering
+    ![alt text](image-34.png)
+    ![alt text](image-35.png)
+    ![alt text](image-36.png)
+    
+   - as i am able to loging using bastion in Training2 VM as  i have enabled bation in first vnet and Training2 VM is running in second subnet
+
+    ![alt text](image-37.png)
+
+
+### User Defined Routes
+- User-Defined Routes (UDRs) are a networking feature in Azure that allows you to control the flow of traffic within and from a virtual network (VNet). By default, Azure automatically manages routing for you, but UDRs give you the ability to override these default routes to direct traffic to specific destinations.
+
+  ![alt text](image-38.png)
+
+
+### Network Watcher services
+
+- Connection Monitor : Check the network connectivity between machines. These can be in Azure or on your on-premises environments
+  - This can check TCP and ICMP connections from Azure virtual machines, machine scale sets, bastion instances and Application Gateways.
+  - Destinations supported - Virtual Machines, Fully qualified domain names, URI's or IP addresses.
+  - Detect issues that impact connectivity that include Virtual machine firewall rules at the OS level, NSG's that are blocking traffic, High VM CPU or Memory utilization.
+
+
+- Next hop : Here you can see the next route for a packet of data. This helps you understand whether the packet is being 
+routed to the correct destination
+
+- IP Flow Verify : This can be used to check if a packet is allowed or denied to or from a virtual machine. If a packet is being denied by a security group, you can see which rule is denying the packet
+
+- Connection troubleshoot : Check the connection from a virtual machine to a virtual machine, fully qualified domain name, URI or IPv4 address.
+
+- NSG Diagnostic : Provides detailed information that helps to 
+understand and debug the security configuration of the network
+
+- Traffic Analytics : This helps to log information 
+about the IP traffic that is flowing through an NSG.
+
+- NSG Flow Logs : Helps to provide visibility into 
+user and application activity in cloud networks.
+
+### Azure Load Balancer Service : 
+
+- Azure Load Balancer is a service that automatically distributes incoming network traffic across multiple backend resources.
+
+
+- health probe  : is a feature of a load balancer that monitors the health and availability of the backend instances (like VMs) in its pool. It works by periodically sending a request to a specified port and path on each instance to check if it's responsive.
+
+
+ #### Azure Load Balancer - Standard 
+
+
+  - created two vm and NSG and add Add inbound security rule as allow SSH and HTTP  from my ip to vm1 and vm2 
+  ![alt text](image-39.png)
+  ![alt text](image-40.png)
+
+  - assigned subnet (which assigned to VMs) to the NSG
+    ![alt text](image-41.png)
+
+
 
 
 
