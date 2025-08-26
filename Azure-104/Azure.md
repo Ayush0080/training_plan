@@ -116,7 +116,7 @@ containers =  this is like top level folder for holding objects
 
 ###  scale sets 
 
-- An Azure Virtual Machine Scale Set is a tool that allows you to manage and automatically scale a group of identical virtual machines. It simplifies the deployment and management of a large number of VMs by allowing you to treat them as a single resource.
+- An Azure Virtual Machine Scale Set is allows you to manage and automatically scale a group of identical virtual machines. It simplifies the deployment and management of a large number of VMs by allowing you to treat them as a single resource.
 
 - Uniform Orchestration = 
 This is the traditional and original orchestration mode. It treats all VMs in the scale set as a single, identical group.manage by scale se
@@ -342,12 +342,57 @@ user and application activity in cloud networks.
  #### Azure Load Balancer - Standard 
 
 
-  - created two vm and NSG and add Add inbound security rule as allow SSH and HTTP  from my ip to vm1 and vm2 
-  ![alt text](image-39.png)
-  ![alt text](image-40.png)
+ - created two vm 1. LBVM1 and 2. LBVM 2 with Custom script extension
+![alt text](image-42.png)
 
-  - assigned subnet (which assigned to VMs) to the NSG
-    ![alt text](image-41.png)
+
+
+- created standard LB amd add backend pool as a VM and Add health probe
+  ![alt text](image-43.png)
+  ![alt text](image-44.png)
+  ![alt text](image-45.png)
+
+- now add inbound NAT rule to loging into the vm when vm doesnot have publice ip 
+
+![alt text](image-46.png)
+
+
+- session persistence :  connections from the same client go to the same backend instance within the backend pool.
+
+#### Standard Load Balancer - VM Scale Set
+
+- created scale set with custom script extension and Upgrade mode
+ set as automatic This will ensure that the custom Script extensions is enabled and then installed on the virtual machines
+that be part of the Virtual Machine scale set.
+
+![alt text](image-47.png)
+![alt text](image-48.png)
+
+- then atteched this scale set to LB as bakend pool
+![alt text](image-49.png)
+
+
+#### Azure application Gateway
+
+- here routing is happened at the network level.this routing is faster because it just forwords the request to the desired bakend pool.
+
+- The application gateway resource will need an empty subnet within a virtual network , gateway will use this dedicated subnet for deploying its own resources.
+
+
+
+- Standard Load Balancer - Based on IP address and port
+- Application Gateway - Based on URL path and host header
+
+### DNS :
+- DNS stands for Domain Name System. It's the internet's phonebook. Its main job is to translate human-friendly domain names (like www.google.com) into computer-readable numerical IP addresses (like 172.217.16.142)
+
+### Azure Web App - Virtual Network Integration :
+
+- this allows the azure web app to access resources withing a virtual network
+
+
+
+
 
 
 
