@@ -393,6 +393,160 @@ that be part of the Virtual Machine scale set.
 
 
 
+# Implement and manage storage
+
+### Blob service
+ - Blob storage is  storing unstructured data.
+
+   - Multimedia: Images, videos, and audio files for web applications or streaming services.
+
+   - Documents: PDFs, Word documents, and text files.
+
+   - Data for Analytics: Raw data for big data analytics and machine learning.
+
+   - Backups: Long-term backups and archives for disaster recovery.
+
+   - created storage account : 
+
+     ![alt text](image-50.png)
+
+   - first created New container :
+     ![alt text](image-51.png) 
+
+   - now upload  contents in container , Each file is stored as a binary object.
+     ![alt text](image-52.png)
+
+   -  if we need to give publice access of the blobe then we can chnage access level of blobe before this we need to enable Allow Blob anonymous access (setting>Configuration)
+   ![alt text](image-53.png)
+
+#### Azure Storage Explorer
+- Azure Storage Explorer is a free, standalone desktop application that allows you to easily manage your Azure storage resources from your Windows, macOS, or Linux computer.
+#### Shared Access Signature (SAS) - Blob Level
+
+  ![alt text](image-55.png)
+
+#### Shared Access Signatures(SAS) - Container Level
+-  if we need to access SAS of container level in Azure Storage Explorer so wee need to give extra Permission as list
+
+![alt text](image-56.png)
+![alt text](image-57.png)
+
+#### Shared Access Signatures (SAS) - At the Storage Account Level
+
+![alt text](image-58.png)
+
+#### Stored Access Policy
+- Stored Access Policy in Azure is a server-side resource that provides an additional layer of control over Shared Access Signatures (SAS). It defines a set of permissions, a start time, and an expiry time that can be inherited by one or more service SAS tokens.
+
+
+#### Azure Storage Accounts - Data Redundancy
+- Azure Storage offers several data redundancy options to ensure the durability and availability of your data. These options vary in cost, performance, and the level of protection they provide against different types of failures. All Azure storage accounts, regardless of the option you choose, store at least three copies of your data in the primary region.
+
+  - Redundancy within a single region
+
+     - Locally Redundant Storage (LRS): 
+
+       This is the lowest-cost option. LRS synchronously replicates your data three times within a single physical data center in the primary region. It protects against component failures like a drive or server rack failure but does not protect against a data center-wide disaster, such as a fire or flood.
+
+
+    - Zone-Redundant Storage (ZRS): 
+    
+      ZRS is a more robust option. It synchronously replicates your data across three different Azure availability zones within the primary region. Each availability zone is a separate physical location with independent power, cooling, and networking. ZRS provides protection against a data center-level failure.
+
+   - Redundancy across multiple regions :
+
+      - Geo-Redundant Storage (GRS): 
+      
+        This option provides cross-regional redundancy. GRS replicates your data three times in the primary region (using LRS) and then asynchronously replicates another three copies to a single physical location in a secondary, geographically distant region. This protects against a full regional outage, but the secondary copy is not accessible for reads or writes unless a failover is initiated.
+
+       - Geo-Zone-Redundant Storage (GZRS):
+       
+         GZRS combines the best of both worlds. It replicates your data synchronously across three availability zones in the primary region (using ZRS) and then asynchronously replicates three additional copies to a secondary region. This offers the highest level of durability and availability, protecting against both zonal and regional disasters.
+
+#### Storage Accounts - Access Tiers
+
+  - Hot : object that are accessed frequently
+
+  - cool : object that are aceessed infrequently , object needs to be stored for a minimum of 30 days
+
+      -  storage costs are lower compare to hot but the access cost are higher
+
+  - cold : object that are aceessed rarely, object needs to be stored for a minimum of 90 days
+  
+ -  archive : object that are aceessed rarely, object needs to be stored for a minimum of 180 days
+      - if we need to change tier from archive to hot,cool,cold then need to procees data with rehydrate proccess
+
+
+#### Azure Storage Accounts - Lifecycle policies      
+ - A lifecycle policy is a collection of rules that define what actions to take on your data. These rules are executed once a day at the storage account level.
+
+
+
+#### File shares : file share > directory > file.
+
+![alt text](image-59.png)
+
+
+
+#### Azure Private Endpoint : 
+
+- Azure Private Endpoint is a network interface that provides a private and secure connection between your Azure virtual network and an Azure Storage account. This connection uses a private IP address from your virtual network, effectively "bringing" the storage account into your private network.
+
+- service endpoint :
+  - is a network security feature in Azure that allows you to secure and control access to Azure PaaS (Platform as a Service) resources. It works by extending the identity of your virtual network to a specific Azure service, such as Azure Storage, Azure SQL Database, or Azure Key Vault.
+
+
+
+
+
+# manage Azure identities and governance
+ 
+  - Authentication : identity of the users are verified
+  - authorization : permissions are checked for the users.
+
+
+### Microsoft Entra ID
+- tenant is dedicated, isolated instance of that Microsoft Entra ID
+- formerly known as Azure Active Directory (Azure AD), is a cloud-based identity and access management (IAM) service. It is the central directory service used to manage user identities and control access to a wide range of applications and resources.
+
+- Role based access Control
+
+  - rules : a set of permissions.
+
+  - we can assign a role at the subscription , resource group and resource leve;l
+
+- Contributor Role : 
+
+   - The Contributor role grants full access to manage all resources, but it does not allow a user to manage access or assign roles to others.
+      - Permissions: Create, update, and delete all types of Azure resources.
+      - Limitations: Cannot assign roles, manage access to resources, or elevate their own privileges.
+
+- User Access Administrator Role : 
+
+   - The User Access Administrator role, on the other hand, gives a user the ability to manage user access to Azure resources
+     - Permissions: Assign or remove roles (like Contributor, Reader, etc.) to users, groups, and service principals.
+     - Limitations: Cannot create, update, or delete any Azure resources.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
