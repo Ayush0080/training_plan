@@ -528,6 +528,129 @@ that be part of the Virtual Machine scale set.
      - Limitations: Cannot create, update, or delete any Azure resources.
 
 
+- Data actions :  Data actions is what you can perform on data within a resource. 
+
+
+- Locking resources   : is an Azure feature that prevents an Azure subscription, resource group, or individual resource from being accidentally deleted or modified. It's an important layer of protection that overrides any user permissions. Even an administrator with the highest-level permissions, like an Owner, cannot perform a blocked operation until the lock is removed.
+
+- if we move resource from one RG to another RG then
+
+   - if desination RG hase no Read only locke then we can move
+
+   
+
+  - 1. Source RG has a `ReadOnly` lock, and the destination has no lock
+ **Cannot move.** The `ReadOnly` lock on the source RG prevents the deletion of the resource from the source, which is a required step for a move operation.
+
+  - 2. Source RG has a `CanNotDelete` lock, and the destination has no lock
+ **Cannot move.** The `CanNotDelete` lock on the source RG explicitly prevents the resource from being deleted, which is required for the move.
+
+  - 3. Source RG has no lock, and the destination has a `ReadOnly` lock
+**Cannot move.** The `ReadOnly` lock on the destination RG prevents any new resources from being created or written to it. The move operation includes a write action on the destination, so the lock will block it.
+
+  - 4. Source RG has no lock, and the destination has a `CanNotDelete` lock
+**Can move.** The `CanNotDelete` lock on the destination RG only prevents deletion. It does not prevent a resource from being created or moved into the resource group. Once the resource is in the destination RG, it will be protected by the lock.
+
+  - 5. Source RG has a `CanNotDelete` lock, and the destination has a `ReadOnly` lock
+**Cannot move.** This is a combination of the first two scenarios. The `CanNotDelete` lock on the source prevents deletion, and the `ReadOnly` lock on the destination prevents writing. The move operation fails on both counts.
+
+
+- Azure Advisor  : is a personalized cloud consultant that helps you follow best practices to optimize your Azure deployments. It analyzes your resource usage and configurations and then provides proactive, actionable, and personalized recommendations to help you improve the security, performance, high availability, and cost-effectiveness of your Azure resources.
+
+
+- Azure policy : helps to govern your resources
+   - for examoke company only wants VM to be constrained to a particular region or need to be certain sku 
+   -  can appliy with subscription>resource group
+
+- management groups : this helps to manage different subscriptions
+
+
+# Monitor and back up Azure resources 
+
+### Azure Monitor Service :
+
+-  Azure Monitor is a unified monitoring service that provides a comprehensive view of your Azure resources, applications, and infrastructure. It helps you collect, analyze, and act on telemetry data from your cloud and on-premises environments to ensure high performance and availability.
+
+
+- Azure Monitor - Alerts : 
+
+   -  An action group is a set of actions that can be applied to an alert rule
+
+   - Suppressing alerts : When an alert is suppressed, the alert rule continues to run and evaluate the conditions, but it does not send out notifications (e.g., emails, SMS, or webhooks) during the suppression period. This is typically configured for a specified duration, after which the suppression automatically ends and notifications resume.
+
+
+   - created Alert based on resource 
+   ![alt text](image-61.png)
+   ![alt text](image-60.png)
+   ![alt text](image-62.png)
+   ![alt text](image-63.png)
+   ![alt text](image-64.png)
+
+
+-  Log Analytics Workspace : 
+
+    - A Log Analytics workspace is a unique environment within Azure Monitor where you collect, aggregate, and analyze log data from various sources. It's the central repository for all your logs and telemetry.
+
+    ![alt text](image-65.png)
+    ![alt text](image-66.png)
+
+
+
+-  DCR (Data collection rules) is a resource in Azure that you can associate with one or more VMs or other resources. The Azure Monitor Agent, installed on the VM, reads the DCR and performs the collection and transformation of the specified logs. The DCR also defines where the collected logs should be sent, such as a Log Analytics workspace or Azure Monitor Metrics
+    - send some logs onto the Log Analytics workspace For this we need to create data collection rule.
+    - the scope for the data collection rule, at this point in time, we can only select virtual machines as resources
+
+
+ - Azure VM Insights  : is a feature of Azure Monitor that provides a comprehensive view of the performance, health, and dependencies of your Azure virtual machines (VMs). It's designed to streamline the monitoring process by automatically collecting key performance data from your VM's guest operating system and presenting it in a clear, organized way.
+
+
+
+### Azure Backup feature :
+
+- Azure Backup is a cost-effective, secure, and scalable cloud-based backup service
+
+
+ - Azure Virtual Machine - Backup :
+    - the backup for VM are stored in a recovery service vault.
+    - for VM backup VM and recovery service vault to be in same region. 
+
+ - Recovery Services vault : This is the traditional and more versatile vault. It can protect a wide range of workloads, including on-premises servers using the MARS agent, Azure VMs, SQL Server in Azure VMs, and Azure File shares. It is also the vault type required for using Azure Site Recovery for disaster recovery. It's designed for both short-term and long-term retention.
+
+ - Backup vault: This is a newer, more streamlined vault designed for a specific set of modern, Azure-native workloads. It is primarily used to protect services like Azure Disks and Azure Database for PostgreSQL Servers. A Backup vault offers a simpler backup solution for these specific services and focuses on providing an operational backup without the broader feature set of a Recovery Services vault
+
+
+- The Microsoft Azure Recovery Services (MARS) :  agent is a lightweight software agent used by Azure Backup to back up files, folders, and system state from Windows machines directly to a Recovery Services vault in Azure.
+
+- Azure Site Recovery :  is a disaster recovery as a service (DRaaS) solution that helps you protect and replicate your applications and workloads to a secondary location, ensuring business continuity during outages. It automatically orchestrates the replication of virtual machines (VMs) and physical servers to either Azure or a secondary on-premises data center.
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
