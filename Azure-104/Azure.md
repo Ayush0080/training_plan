@@ -624,6 +624,33 @@ that be part of the Virtual Machine scale set.
 - Azure Site Recovery :  is a disaster recovery as a service (DRaaS) solution that helps you protect and replicate your applications and workloads to a secondary location, ensuring business continuity during outages. It automatically orchestrates the replication of virtual machines (VMs) and physical servers to either Azure or a secondary on-premises data center.
 
 
+- create new resource group using powershell script
+
+![alt text](<Screenshot 2025-08-29 103621.png>)
+
+- create new virtual network
+![alt text](image-67.png)
+
+- creat new virtual network with subnet
+![alt text](image-68.png)
+
+- create new network interface with existing virtual network
+![alt text](image-69.png)
+
+
+- create new resource group using azure cloud cli
+  
+[command documentation](https://learn.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#code-try-1)
+
+- create resource group 
+  ![alt text](image-70.png)
+
+- creat Vnet
+![alt text](image-71.png)
+![alt text](image-72.png)
+ 
+- create VM
+![alt text](image-73.png)
 
 
 
